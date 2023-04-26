@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { v4 as uuid } from "uuid";
 import AddAccount from "./AddAccount";
 import OneAccountRow from "./OneAccountRow";
 import Filter from "./Filter";
@@ -19,9 +21,21 @@ export default function Accounts({ addMsg }) {
 
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
 
+  const URL = "http://localhost:5000/accounts";
+
   // get from db and use default sort by surname
   useEffect(() => {
-    setAccounts(dbGet(DB_KEY).sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
+    axios
+      .get(URL)
+      .then((res) => {
+        if (res.data.message !== "OK") {
+          throw new Error();
+        }
+        setAccounts(res.data.accounts.sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
+      })
+      .catch((e) => {
+        addMsg({ type: "error", text: "Sorry, Server Error" });
+      });
   }, [lastUpdateTime]);
 
   // use filtered accounts for display if filter function set
@@ -34,8 +48,19 @@ export default function Accounts({ addMsg }) {
     if (newAccount === null) {
       return;
     }
-    dbAdd({ key: DB_KEY, data: newAccount });
-    setLastUpdateTime(Date.now());
+    const promiseId = uuid();
+
+    setAccounts((accounts) => [...accounts, { ...newAccount, promiseId, id: promiseId }]);
+    addMsg({ type: "success", text: "Nauja s s" });
+
+    axios.post(URL, { account: newAccount, promiseId }).then((res) => {
+      if (res.data.message !== "OK") {
+        setAccounts((accounts) => accounts.filter((account) => account.promiseId !== promiseId));
+        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida kuriant sąskaitą` });
+        return;
+      }
+      setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null, id: res.data.id } : { ...account })));
+    });
   }, [newAccount]);
 
   // delete account from db
