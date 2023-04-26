@@ -76,13 +76,13 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
             value={newAmount || ""}
             onValueChange={(value) => changeAmount(value)}></CurrencyInput>
           <div className="control-box">
-            <button className="green" onClick={addMoneyToAccount}>
+            <button className={`green ${account.promiseId ? "disabled" : ""}`} onClick={addMoneyToAccount}>
               {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
               pridėti lėšų
             </button>
           </div>
           <div className="control-box">
-            <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
+            <button className={`orange ${account.money < newAmount || account.promiseId ? "disabled" : ""}`} onClick={subtractMoneyFromAccount}>
               {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
               {account.money < newAmount && <span className="inline-msg red">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
               nuskaičiuoti lėšas
@@ -90,7 +90,7 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
           </div>
         </div>
         <div className="control-box">
-          <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>
+          <button className={`red ${account.money > 0 || account.promiseId ? "disabled" : ""}`} onClick={handleDelete}>
             {account.money > 0 && <span className="inline-msg red">Negalima ištrinti sąskaitos kurioje yra pinigų.</span>}
             ištrinti
           </button>
