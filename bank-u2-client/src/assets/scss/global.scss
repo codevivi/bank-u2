@@ -1,0 +1,57 @@
+$accent: #19adfe;
+$dark: #0d2149;
+$darkest: #0c090d;
+$green: #00804b;
+$light: #f9ebe0;
+$orange: #c27052;
+$red: #8c0909;
+$margin-large: 2.5rem;
+
+button {
+  font-size: 12px;
+  padding: 0.5em 1em;
+  background-color: $accent;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  border: 1px solid white;
+  transition: all 0.3s;
+  min-height: 3em;
+  margin: 0.1em;
+  cursor: pointer;
+
+  &.red {
+    // color: $dark;
+    border-color: $dark;
+    background-color: $red;
+  }
+  &.orange {
+    // color: $dark;
+    border-color: $dark;
+    background-color: $orange;
+  }
+  &.green {
+    // color: $dark;
+    border-color: $dark;
+    background-color: $green;
+  }
+  &.disabled {
+    pointer-events: none;
+    color: rgb(126, 123, 123);
+    border-color: rgb(130, 127, 127);
+    background-color: rgb(177, 176, 176);
+  }
+}
+button:hover,
+button:focus {
+  background-color: rgb(4, 136, 212);
+  &.green {
+    background-color: rgb(9, 167, 9);
+  }
+  &.red {
+    background-color: rgb(250, 0, 0);
+  }
+  &.orange {
+    background-color: rgb(250, 100, 0);
+  }
+}

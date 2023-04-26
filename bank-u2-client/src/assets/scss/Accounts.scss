@@ -1,0 +1,210 @@
+.accounts {
+  width: 100%;
+  max-width: fit-content;
+  min-width: 836px;
+  margin: auto;
+  .top {
+    width: 100%;
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    margin-bottom: $margin-large;
+    border-top: 5px solid $light;
+    background-color: $dark;
+  }
+  .open-btn {
+    background-color: $dark;
+    &:hover,
+    &:focus {
+      background-color: $accent;
+    }
+  }
+  .info {
+    width: fit-content;
+    background-color: $dark;
+    color: $light;
+    .info-header {
+      color: $accent;
+      font-weight: bold;
+    }
+    .info-stat {
+      font-size: 1.1em;
+    }
+  }
+
+  .accounts-table {
+    width: 100%;
+    margin: auto;
+    margin-bottom: $margin-large;
+    background-color: $light;
+    font-size: 0.9em;
+    .mobile-header {
+      display: none;
+    }
+    thead {
+      background-color: $dark;
+      color: $light;
+    }
+
+    tr {
+      border-bottom: 1px solid $accent;
+    }
+    th {
+      font-weight: normal;
+      text-transform: uppercase;
+      min-width: 116px;
+      width: max-content;
+      text-align: left;
+      padding: 1em;
+    }
+    th:last-child {
+      text-align: center;
+      border-left: 5px solid $light;
+    }
+
+    td {
+      text-align: left;
+      text-indent: 1em;
+      padding-right: 0.5em;
+      border-bottom: 1px solid $accent;
+      .control-box:hover {
+        position: relative;
+        font-size: 0.8rem;
+        .inline-msg {
+          height: auto;
+          display: block;
+          width: max-content;
+          position: absolute;
+          padding: 0.5em;
+          border-radius: 8px 8px 0 8px;
+          border-bottom: 5px solid $dark;
+          border-right: 5px solid $dark;
+          background: $red;
+          color: white;
+          top: -60%;
+          right: 0;
+        }
+      }
+      button {
+        .inline-msg {
+          display: none;
+        }
+
+        &.red {
+          float: right;
+          margin: 0.5em;
+        }
+      }
+
+      &.td-actions {
+        display: inline-flex;
+        background-color: rgba(15, 151, 241, 0.074);
+        align-items: center;
+        padding-left: 0.3em;
+        padding-right: 0;
+        .edit-actions {
+          display: inline-flex;
+          background-color: $accent;
+          padding: 0.5em;
+          input {
+            padding: 0 0.2rem;
+            margin: 0 0.1rem;
+            border: none;
+            border: 1px solid #19aefe53;
+            background-color: white;
+            outline: none;
+          }
+          input:focus,
+          input:hover {
+            border: 1px solid $dark;
+          }
+        }
+      }
+    }
+  }
+  .filters {
+    p {
+      margin-bottom: 0.5em;
+    }
+    .checkbox {
+      // cursor: pointer;
+      padding: 0.5em;
+      border: 2px solid transparent;
+      &.checked {
+        border-color: $light;
+        color: $light;
+        background-color: $dark;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1000px) {
+  .accounts {
+    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+    .close-btn {
+      font-size: 36px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      padding: 0;
+    }
+    .accounts-table {
+      min-height: 50px;
+      background-color: white;
+      .mobile-header {
+        display: inline;
+        color: $accent;
+        min-width: 70px;
+      }
+      tr {
+        background-color: $light;
+      }
+      th {
+        display: none;
+      }
+      td:last-child {
+        border-bottom: 1em solid white;
+      }
+
+      td {
+        display: block;
+        min-height: 2em;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        &.td-actions {
+          width: 100%;
+          box-sizing: border-box;
+          align-items: baseline;
+          align-items: stretch;
+          justify-content: stretch;
+          padding: 0;
+          width: 100%;
+          * {
+            width: 100%;
+            margin: 0;
+          }
+          input {
+            padding: 0.7em;
+            background-color: white;
+          }
+          button {
+            width: 100%;
+            margin-left: -1.2em;
+            height: 100%;
+            &.red {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

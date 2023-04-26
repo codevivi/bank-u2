@@ -1,0 +1,25 @@
+.page-header {
+  background-color: $dark;
+  border-bottom: 5px solid $light;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  .logo {
+    display: inline-flex;
+    align-items: flex-end;
+    text-transform: uppercase;
+    color: $accent;
+    font-size: 24px;
+    img {
+      width: 2.5em;
+      height: 2.5em;
+    }
+    span {
+      position: relative;
+      line-height: 1.8em;
+      margin-left: -0.4em;
+    }
+  }
+}

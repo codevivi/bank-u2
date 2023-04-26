@@ -1,0 +1,141 @@
+.messages {
+  position: fixed;
+  top: 4.2em;
+  right: 0;
+  height: 5em;
+  max-width: fit-content;
+  overflow: hidden;
+  z-index: 49;
+  .controls {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 1em;
+    background-color: $dark;
+    z-index: 50;
+    button {
+      border: none;
+      font-size: 12px;
+      background-color: $dark;
+      color: $light;
+      box-shadow: -1px 2px 3px rgba(2, 66, 126, 0.693);
+      &.delete-all {
+        border-left: 3px solid $accent;
+      }
+
+      &.toggle-expand {
+        flex: 1;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        min-height: auto;
+        font-size: 36px;
+        border: none;
+        box-shadow: none;
+      }
+    }
+    button:hover,
+    button:focus {
+      color: $accent;
+    }
+  }
+  &.expanded {
+    overflow: auto;
+    max-height: 60vh;
+    height: auto;
+
+    .messages-inner {
+      height: auto;
+      flex-direction: column-reverse;
+    }
+    .controls {
+      position: sticky;
+    }
+  }
+  .messages-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    height: 2.5em;
+    overflow: hidden;
+    transition: all 2s;
+    box-shadow: -1px 1px 3px rgba(2, 66, 126, 0.693);
+    background-color: $dark;
+
+    .msg {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1em;
+      padding: 0.1em;
+      margin: 0.1em;
+      background-color: $light;
+
+      p {
+        position: relative;
+        padding-left: 40px;
+      }
+      .new-indicator {
+        display: none;
+        position: absolute;
+        left: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 3px 3px 9px white;
+      }
+      &.active {
+        .new-indicator {
+          display: block;
+          animation-name: flash;
+          animation-duration: 1s;
+          animation-iteration-count: infinite;
+        }
+        @keyframes flash {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+      }
+      button {
+        font-size: 36px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: auto;
+        padding: 0;
+      }
+      &.error {
+        color: $red;
+        .new-indicator {
+          background-color: $red;
+        }
+      }
+      &.success {
+        color: $green;
+        .new-indicator {
+          background-color: $green;
+        }
+      }
+      &.info {
+        color: $orange;
+        .new-indicator {
+          background-color: $orange;
+        }
+      }
+    }
+  }
+}
