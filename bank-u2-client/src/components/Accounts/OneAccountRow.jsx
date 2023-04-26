@@ -84,14 +84,14 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
           <div className="control-box">
             <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
               {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
-              {account.money < newAmount && <span className="inline-msg">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
+              {account.money < newAmount && <span className="inline-msg red">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
               nuskaičiuoti lėšas
             </button>
           </div>
         </div>
         <div className="control-box">
           <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>
-            {account.money > 0 && <span className="inline-msg">Negalima ištrinti sąskaitos kurioje yra pinigų.</span>}
+            {account.money > 0 && <span className="inline-msg red">Negalima ištrinti sąskaitos kurioje yra pinigų.</span>}
             ištrinti
           </button>
         </div>

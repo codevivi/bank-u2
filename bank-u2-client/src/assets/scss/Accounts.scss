@@ -11,20 +11,14 @@
     justify-content: space-between;
     gap: 1em;
     margin-bottom: $margin-large;
-    border-top: 5px solid $light;
-    background-color: $dark;
-  }
-  .open-btn {
-    background-color: $dark;
-    &:hover,
-    &:focus {
-      background-color: $accent;
-    }
+    border-top: 5px solid $accent;
+    background-color: $light;
+    box-shadow: 1px 1px 3px rgba($darkest, 0.4);
   }
   .info {
     width: fit-content;
-    background-color: $dark;
-    color: $light;
+    color: $dark;
+    font-weight: bold;
     .info-header {
       color: $accent;
       font-weight: bold;
@@ -48,9 +42,6 @@
       color: $light;
     }
 
-    tr {
-      border-bottom: 1px solid $accent;
-    }
     th {
       font-weight: normal;
       text-transform: uppercase;
@@ -68,7 +59,7 @@
       text-align: left;
       text-indent: 1em;
       padding-right: 0.5em;
-      border-bottom: 1px solid $accent;
+      border-bottom: 1px solid lighten($medium, 50%);
       .control-box:hover {
         position: relative;
         font-size: 0.8rem;
@@ -81,10 +72,13 @@
           border-radius: 8px 8px 0 8px;
           border-bottom: 5px solid $dark;
           border-right: 5px solid $dark;
-          background: $red;
-          color: white;
+          background-color: $light;
+          color: $dark;
           top: -60%;
           right: 0;
+          &.red {
+            color: $red;
+          }
         }
       }
       button {
@@ -100,42 +94,26 @@
 
       &.td-actions {
         display: inline-flex;
-        background-color: rgba(15, 151, 241, 0.074);
         align-items: center;
         padding-left: 0.3em;
         padding-right: 0;
         .edit-actions {
           display: inline-flex;
-          background-color: $accent;
+          background-color: $medium;
           padding: 0.5em;
           input {
+            background-color: lighten($accent, 38%);
             padding: 0 0.2rem;
             margin: 0 0.1rem;
             border: none;
-            border: 1px solid #19aefe53;
-            background-color: white;
             outline: none;
+            cursor: text;
           }
           input:focus,
           input:hover {
-            border: 1px solid $dark;
+            background-color: white;
           }
         }
-      }
-    }
-  }
-  .filters {
-    p {
-      margin-bottom: 0.5em;
-    }
-    .checkbox {
-      // cursor: pointer;
-      padding: 0.5em;
-      border: 2px solid transparent;
-      &.checked {
-        border-color: $light;
-        color: $light;
-        background-color: $dark;
       }
     }
   }
@@ -157,7 +135,7 @@
     }
     .accounts-table {
       min-height: 50px;
-      background-color: white;
+      // background-color: $dark;
       .mobile-header {
         display: inline;
         color: $accent;
@@ -189,7 +167,7 @@
           width: 100%;
           * {
             width: 100%;
-            margin: 0;
+            margin: 0 5px;
           }
           input {
             padding: 0.7em;
@@ -201,6 +179,7 @@
             height: 100%;
             &.red {
               margin: 0;
+              margin-top: 5px;
             }
           }
         }

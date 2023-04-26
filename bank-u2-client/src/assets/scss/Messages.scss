@@ -2,27 +2,25 @@
   position: fixed;
   top: 4.2em;
   right: 0;
-  height: 5em;
+  height: 4.9em;
   max-width: fit-content;
   overflow: hidden;
   z-index: 49;
   .controls {
     position: absolute;
-    bottom: 3px;
+    bottom: -4px;
     left: 0;
     width: 100%;
     display: flex;
     align-items: stretch;
     justify-content: stretch;
-    gap: 1em;
+    color: $medium;
     background-color: $dark;
     z-index: 50;
     button {
+      background-color: transparent;
+      box-shadow: none;
       border: none;
-      font-size: 12px;
-      background-color: $dark;
-      color: $light;
-      box-shadow: -1px 2px 3px rgba(2, 66, 126, 0.693);
       &.delete-all {
         border-left: 3px solid $accent;
       }
@@ -42,7 +40,7 @@
     }
     button:hover,
     button:focus {
-      color: $accent;
+      color: lighten($accent, 20%);
     }
   }
   &.expanded {
@@ -66,21 +64,19 @@
     height: 2.5em;
     overflow: hidden;
     transition: all 2s;
-    box-shadow: -1px 1px 3px rgba(2, 66, 126, 0.693);
-    background-color: $dark;
-
     .msg {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
       gap: 1em;
       padding: 0.1em;
-      margin: 0.1em;
-      background-color: $light;
-
+      border-bottom: 1px solid $orange;
+      background-color: $dark;
       p {
         position: relative;
         padding-left: 40px;
+        font-weight: bold;
       }
       .new-indicator {
         display: none;
@@ -112,11 +108,16 @@
         font-size: 36px;
         width: 30px;
         height: 30px;
+        min-height: auto;
         display: flex;
         align-items: center;
+        background-color: transparent;
         justify-content: center;
-        min-height: auto;
         padding: 0;
+        &:hover,
+        &focus {
+          color: lighten($accent, 20%);
+        }
       }
       &.error {
         color: $red;
@@ -131,9 +132,9 @@
         }
       }
       &.info {
-        color: $orange;
+        color: $accent;
         .new-indicator {
-          background-color: $orange;
+          background-color: $accent;
         }
       }
     }

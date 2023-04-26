@@ -2,6 +2,7 @@
   padding-top: 6.5rem;
   margin: auto;
   background-color: $accent;
+  background-color: white;
   min-height: 100vh;
   height: 100%;
   display: flex;
@@ -17,13 +18,11 @@
   flex: 1;
 }
 
-.error-msg {
-  color: $red;
-}
-
 h1 {
   text-align: center;
   text-transform: uppercase;
-  font-weight: normal;
+  font-weight: bold;
   margin-bottom: $margin-large;
+  color: $accent;
+  text-shadow: 0.5px 0.5px 1px $dark;
 }

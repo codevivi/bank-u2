@@ -15,7 +15,7 @@ function Messages({ messages, deleteMsg, deleteAllMsg }) {
           <button className="toggle-expand" onClick={() => setIsExpanded((is) => !is)}>
             {isExpanded ? <MdOutlineExpandLess /> : <MdOutlineExpandMore />}
           </button>
-          <button onClick={deleteAllMsg} className="delete-all red">
+          <button onClick={deleteAllMsg} className="delete-all">
             Panaikinti visas {messages.length}
           </button>
         </div>

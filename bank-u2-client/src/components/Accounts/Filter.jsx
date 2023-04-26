@@ -29,15 +29,14 @@ function Filter({ setFilterFunc }) {
 
   return (
     <div className="filters">
-      <p>Rodyti sąskaitas </p>
       <button className={"checkbox " + (radioFilter === null ? "checked" : "")} onClick={() => handleFilterClick(null)}>
-        Visas
+        Visos
       </button>
       <button className={"checkbox " + (radioFilter === "with-money" ? "checked" : "")} onClick={() => handleFilterClick("with-money")}>
         Kuriose yra pinigų
       </button>
       <button className={"checkbox " + (radioFilter === "no-money" ? "checked" : "")} onClick={() => handleFilterClick("no-money")}>
-        Tuščias
+        Tuščios
       </button>
     </div>
   );

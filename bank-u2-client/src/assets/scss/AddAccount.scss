@@ -9,6 +9,7 @@
   padding-top: 5em;
   margin: auto;
   background-color: #19aefecd;
+  background-color: rgba($accent, 0.7);
   text-align: center;
   .main {
     width: fit-content;
@@ -22,12 +23,14 @@
     margin-top: 6em;
     position: relative;
     background-color: $dark;
+    border-radius: 5px;
   }
   .close-btn {
     position: absolute;
     top: 0;
     right: 0;
     background-color: transparent;
+    box-shadow: none;
     color: $light;
     border: none;
     font-size: 32px;
@@ -42,13 +45,14 @@
     color: white;
   }
   .add-account-form {
-    background-color: $light;
     padding: 3em;
     margin: auto;
     max-width: fit-content;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    background-color: $light;
+    border-radius: 5px;
     div {
       display: flex;
       align-items: center;

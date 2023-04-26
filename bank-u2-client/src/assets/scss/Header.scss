@@ -1,6 +1,10 @@
 .page-header {
   background-color: $dark;
-  border-bottom: 5px solid $light;
+  background-color: $dark;
+  background-color: $light;
+  border-bottom: 5px solid $accent;
+  box-shadow: 1px 1px 3px $darkest;
+
   width: 100vw;
   position: fixed;
   left: 0;
@@ -10,6 +14,8 @@
     display: inline-flex;
     align-items: flex-end;
     text-transform: uppercase;
+    text-shadow: 0.5px 0.5px 1px $dark;
+    font-weight: bold;
     color: $accent;
     font-size: 24px;
     img {
