@@ -15,7 +15,6 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0",
     "react-scripts": "5.0.1",
     "sass": "^1.61.0"
   },

@@ -63,13 +63,17 @@ app.put("/accounts/:id", async (req, res) => {
     data = data.map((account) => (account.id === req.params.id ? { ...account, ...req.body.account } : { ...account }));
     data = JSON.stringify(data);
     await writeFile(DB, data);
+    console.log(req.body.promiseId);
     res.json({
-      message: "OK",
-      id: req.params.id,
+      message: "OKl",
+      promiseId: req.body.promiseId,
+      id: req.body.account.id,
     });
   } catch (err) {
     res.json({
       message: "failure",
+      promiseId: req.body.promiseId,
+      id: req.body.account.id,
     });
   }
 });

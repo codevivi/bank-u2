@@ -19,7 +19,7 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
 
   const addMoneyToAccount = () => {
     if (newAmount !== null) {
-      setUpdateAccount({ ...account, money: account.money + Number(newAmount) });
+      setUpdateAccount({ old: { ...account }, new: { ...account, money: account.money + Number(newAmount) } });
       addMsg({ type: "success", text: `${formatCurrency(newAmount)} pridėta į sąskaitą (${account.name} ${account.surname}).` });
     }
     setNewAmount(null);
@@ -31,7 +31,7 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
         addMsg({ type: "error", text: "Pervedimas nepavyko: saskaitoje neužtenka pinigų." });
         return;
       }
-      setUpdateAccount({ ...account, money: account.money - Number(newAmount) });
+      setUpdateAccount({ old: { ...account }, new: { ...account, money: account.money - Number(newAmount) } });
       addMsg({ type: "success", text: `${formatCurrency(newAmount)} nuskaičiuota iš (${account.name} ${account.surname}).` });
     }
 

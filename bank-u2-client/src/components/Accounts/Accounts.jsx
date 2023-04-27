@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import AddAccount from "./AddAccount";
@@ -6,10 +6,12 @@ import OneAccountRow from "./OneAccountRow";
 import Filter from "./Filter";
 import Stats from "./Stats";
 import { dbAdd, dbDeleteById, dbGet, dbUpdate } from "../../db";
+import { useContext } from "react";
+import { GlobalContext } from "../Contexts/Global";
 
 const DB_KEY = "accounts";
 
-export default function Accounts({ addMsg }) {
+export default function Accounts() {
   const [accounts, setAccounts] = useState(null);
   const [displayAccounts, setDisplayAccounts] = useState(accounts);
   const [filterFunc, setFilterFunc] = useState(null);
@@ -20,8 +22,24 @@ export default function Accounts({ addMsg }) {
   const [updateAccount, setUpdateAccount] = useState(null);
 
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
+  // const [msg, setMsg] = useState(null);
+
+  const accountsInEditSave = useRef({});
 
   const URL = "http://localhost:5000/accounts";
+
+  const { addMsg } = useContext(GlobalContext);
+
+  // useEffect(() => {
+  //   if (msg === null) {
+  //     return;
+  //   }
+  //   addMsg(msg);
+  // }, [msg]);
+
+  // const newMsg = (type, text) => {
+  //   setMsg({ type: type, text: text });
+  // };
 
   // get from db and use default sort by surname
   useEffect(() => {
@@ -32,9 +50,10 @@ export default function Accounts({ addMsg }) {
           throw new Error();
         }
         setAccounts(res.data.accounts.sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
+        addMsg({ type: "error", text: `bal bla bla bla` });
       })
       .catch((e) => {
-        addMsg({ type: "error", text: "Sorry, Server Error" });
+        addMsg({ type: "error", text: `Atsiprašome, serverio klaida` });
       });
   }, [lastUpdateTime]);
 
@@ -77,8 +96,26 @@ export default function Accounts({ addMsg }) {
     if (updateAccount === null) {
       return;
     }
-    dbUpdate({ key: DB_KEY, data: updateAccount });
-    setLastUpdateTime(Date.now());
+    const promiseId = uuid();
+    // const id = updateAccount.old.id;
+
+    //save account before edit in case edit in server won't succeed
+    console.log(updateAccount.old.id);
+    accountsInEditSave.current[updateAccount.old.id] = { ...updateAccount.old };
+    setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.new.id ? { ...account, ...updateAccount.new, promiseId } : { ...account })));
+
+    addMsg({ type: "success", text: "updated bla bla" });
+    axios.put(URL + "/" + updateAccount.new.id, { account: updateAccount.new, promiseId }).then((res) => {
+      if (res.data.message !== "OK") {
+        //if save edit in server did not happen restore previous account
+        setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...accountsInEditSave.current[res.data.id] } : { ...account })));
+        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos pakeitimus` });
+      } else {
+        setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null } : { ...account })));
+      }
+      //??????? how to delete?
+      // delete accountsInEditSave.current[id];
+    });
   }, [updateAccount]);
 
   if (accounts === null || displayAccounts === null) {
