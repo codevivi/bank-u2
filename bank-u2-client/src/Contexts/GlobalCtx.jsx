@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import useMessages from "../../hooks/useMessages";
+import useMessages from "../hooks/useMessages";
 
 export const GlobalContext = createContext({});
 

@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import formatCurrency from "../../utils/formatCurrency";
-function Stats({ accounts }) {
+import { AccountsContext } from "../../Contexts/AccountsCtx";
+function Stats() {
+  const { accounts } = useContext(AccountsContext);
   const totalMoneyInAllAccounts = formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0));
 
   return (

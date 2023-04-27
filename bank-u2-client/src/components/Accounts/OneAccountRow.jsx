@@ -1,9 +1,13 @@
 import CurrencyInput from "react-currency-input-field";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import formatCurrency from "../../utils/formatCurrency";
+import { GlobalContext } from "../../Contexts/GlobalCtx";
+import { AccountsContext } from "../../Contexts/AccountsCtx";
 
-export default function OneAccountRow({ account, setUpdateAccount, setDeleteAccountId, addMsg }) {
+export default function OneAccountRow({ account }) {
   const [newAmount, setNewAmount] = useState(null);
+  const { addMsg } = useContext(GlobalContext);
+  const { setUpdateAccount, setDeleteAccountId } = useContext(AccountsContext);
 
   const changeAmount = (value) => {
     if (value) {

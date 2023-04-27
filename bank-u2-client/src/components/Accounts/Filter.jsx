@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AccountsContext } from "../../Contexts/AccountsCtx";
 
-function Filter({ setFilterFunc }) {
+function Filter() {
   const [radioFilter, setRadioFilter] = useState(null);
+  const { setFilterFunc } = useContext(AccountsContext);
 
-  const filterWithMoney = (displayAccounts) => displayAccounts.filter((displayAccounts) => displayAccounts.money > 0);
-  const filterNoMoney = (displayAccounts) => displayAccounts.filter((displayAccounts) => !displayAccounts.money);
+  const filterWithMoney = (displayAccounts) => displayAccounts.filter((displayAccount) => displayAccount.money > 0);
+  const filterNoMoney = (displayAccounts) => displayAccounts.filter((displayAccount) => !displayAccount.money);
 
   useEffect(() => {
     switch (radioFilter) {

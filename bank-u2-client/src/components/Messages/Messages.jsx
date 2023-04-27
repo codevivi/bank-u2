@@ -2,13 +2,13 @@ import { useState } from "react";
 import Message from "./Message";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import { useContext } from "react";
-import { GlobalContext } from "../Contexts/Global";
+import { GlobalContext } from "../../Contexts/GlobalCtx";
 
 function Messages() {
   const [isExpanded, setIsExpanded] = useState(false);
   const { messages, deleteMsg, deleteAllMsg } = useContext(GlobalContext);
   return (
-    <div className={`messages ${isExpanded ? "expanded" : null}`}>
+    <div className={`messages ${isExpanded ? "expanded" : ""}`}>
       <div className="messages-inner">
         {messages?.map((msg) => (
           <Message key={msg.id} msg={msg} deleteMsg={deleteMsg} />

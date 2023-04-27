@@ -65,7 +65,7 @@ app.put("/accounts/:id", async (req, res) => {
     await writeFile(DB, data);
     console.log(req.body.promiseId);
     res.json({
-      message: "OKl",
+      message: "OK",
       promiseId: req.body.promiseId,
       id: req.body.account.id,
     });

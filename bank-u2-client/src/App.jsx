@@ -3,8 +3,9 @@ import Header from "./components/Parts/Header";
 import Footer from "./components/Parts/Footer";
 import Messages from "./components/Messages/Messages";
 import { useEffect, useState } from "react";
-import { GlobalProvider, GlobalContext } from "./components/Contexts/Global";
+import { GlobalProvider, GlobalContext } from "./Contexts/GlobalCtx";
 import { useContext } from "react";
+import { AccountsProvider } from "./Contexts/AccountsCtx";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <Header />
         <main className="container main">
           <Messages />
-          <Accounts />
+          <AccountsProvider>
+            <Accounts />
+          </AccountsProvider>
         </main>
         <Footer />
       </div>

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { GlobalContext } from "../../Contexts/GlobalCtx";
+import { AccountsContext } from "../../Contexts/AccountsCtx";
 
-export default function AddAccount({ setAddAccountModalOpen, setNewAccount, addMsg }) {
+export default function AddAccount({ setAddAccountModalOpen }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const { addMsg } = useContext(GlobalContext);
+  const { setNewAccount } = useContext(AccountsContext);
 
   function controlValidNameAndSurname(val) {
     val = val.replaceAll(/[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ\s]/g, "");
@@ -34,7 +38,6 @@ export default function AddAccount({ setAddAccountModalOpen, setNewAccount, addM
 
       setName("");
       setSurname("");
-      addMsg({ type: "success", text: `Kliento (${name} ${surname}) sąskaita  sėkmingai sukurta.` });
       setAddAccountModalOpen(false);
       return;
     }
