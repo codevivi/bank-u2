@@ -23,7 +23,7 @@
    npm install
    ```
 
-4. start server will run on [http://localhost:5000](http://localhost:5000)
+4. to start server (will run on [http://localhost:5000](http://localhost:5000)) : run below command in bank-u2-server directory
 
    ```sh
    npm start
@@ -35,7 +35,7 @@
    npm run dev
    ```
 
-5. start react application will run on [http://localhost:3000](http://localhost:3000)
+5. to start react application (will run on [http://localhost:3000](http://localhost:3000)) : run below command in bank-u2-client directory
 
    ```sh
    npm start
