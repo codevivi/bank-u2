@@ -1,0 +1,50 @@
+.modal {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  padding: 1em;
+  padding-top: 5em;
+  margin: auto;
+  background-color: #19aefecd;
+  background-color: rgba($accent, 0.7);
+  text-align: center;
+  .main {
+    width: fit-content;
+    padding: 2em;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 6em;
+    position: relative;
+    background-color: $dark;
+    border-radius: 5px;
+  }
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    box-shadow: none;
+    color: $light;
+    border: none;
+    font-size: 32px;
+  }
+  .close-btn:focus,
+  .close-btn:hover {
+    color: $accent;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .add-account {
+    .main {
+      max-width: 300px;
+      padding: 1em;
+    }
+  }
+}

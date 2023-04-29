@@ -47,7 +47,7 @@ function useAccounts() {
     setDisplayAccounts(accountsTemp);
   }, [accounts, filterFunc]);
 
-  // add account to db
+  // CREATE add account to db
   useEffect(() => {
     if (newAccount === null) {
       return;
@@ -72,7 +72,7 @@ function useAccounts() {
       });
   }, [newAccount, addMsg]);
 
-  // delete account from db
+  // DELETE account from db
   useEffect(() => {
     if (deleteAccount === null) {
       return;
@@ -92,7 +92,7 @@ function useAccounts() {
       });
   }, [deleteAccount, addMsg]);
 
-  // update account in db
+  // UPDATE account in db
   useEffect(() => {
     if (updateAccount === null) {
       return;
@@ -114,6 +114,8 @@ function useAccounts() {
         addMsg({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos (${updateAccount.old.name} ${updateAccount.old.surname}) pakeitimus` });
       });
   }, [updateAccount, addMsg]);
+
   return [accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount];
 }
+
 export default useAccounts;

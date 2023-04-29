@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { MdClose } from "react-icons/md";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
+import Modal from "../Modal/Modal";
 
 export default function AddAccount({ setAddAccountModalOpen }) {
   const [name, setName] = useState("");
@@ -42,11 +42,8 @@ export default function AddAccount({ setAddAccountModalOpen }) {
   }
 
   return (
-    <div className="add-account">
-      <div className="main">
-        <button className="close-btn" onClick={() => setAddAccountModalOpen(false)}>
-          <MdClose />
-        </button>
+    <Modal close={() => setAddAccountModalOpen(false)}>
+      <div className="add-account">
         <h2>Sukurti naują sąskaitą</h2>
         <form onSubmit={handleForm} className="add-account-form">
           <div>
@@ -60,6 +57,6 @@ export default function AddAccount({ setAddAccountModalOpen }) {
           <button>Sukurti</button>
         </form>
       </div>
-    </div>
+    </Modal>
   );
 }

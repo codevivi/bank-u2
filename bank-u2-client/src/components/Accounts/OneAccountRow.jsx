@@ -3,9 +3,11 @@ import { useContext, useState } from "react";
 import formatCurrency from "../../utils/formatCurrency";
 import { GlobalContext } from "../../Contexts/GlobalCtx";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
+import ConfirmDelete from "./ConfirmDelete";
 
 export default function OneAccountRow({ account }) {
   const [newAmount, setNewAmount] = useState(null);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const { addMsg } = useContext(GlobalContext);
   const { setUpdateAccount, setDeleteAccount } = useContext(AccountsContext);
 
@@ -49,6 +51,7 @@ export default function OneAccountRow({ account }) {
     }
     setDeleteAccount(account);
     addMsg({ type: "success", text: `Kliento (${account.surname} ${account.name}) sąskaita sėkmingai panaikinta.` });
+    setConfirmDeleteModalOpen(false);
   };
   return (
     <tr>
@@ -94,10 +97,11 @@ export default function OneAccountRow({ account }) {
           </div>
         </div>
         <div className="control-box">
-          <button className={`red ${account.money > 0 || account.promiseId ? "disabled" : ""}`} onClick={handleDelete}>
+          <button className={`red ${account.money > 0 || account.promiseId ? "disabled" : ""}`} onClick={() => setConfirmDeleteModalOpen(true)}>
             {account.money > 0 && <span className="inline-msg red">Negalima ištrinti sąskaitos kurioje yra pinigų.</span>}
             ištrinti
           </button>
+          {confirmDeleteModalOpen && <ConfirmDelete close={() => setConfirmDeleteModalOpen(false)} handleDelete={handleDelete} account={account} />}
         </div>
       </td>
     </tr>

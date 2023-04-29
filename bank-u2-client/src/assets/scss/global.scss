@@ -63,6 +63,7 @@ button {
     color: lighten($light, 20%);
     background-color: darken($light, 28%);
     cursor: not-allowed;
+    pointer-events: none;
     box-shadow: none;
     &:hover,
     &:focus {
