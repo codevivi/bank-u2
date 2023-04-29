@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import { MdClose } from "react-icons/md";
-import { GlobalContext } from "../../Contexts/GlobalCtx";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
 
 export default function AddAccount({ setAddAccountModalOpen }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const { addMsg } = useContext(GlobalContext);
   const { setNewAccount } = useContext(AccountsContext);
 
   function controlValidNameAndSurname(val) {
@@ -53,7 +51,7 @@ export default function AddAccount({ setAddAccountModalOpen }) {
         <form onSubmit={handleForm} className="add-account-form">
           <div>
             <label htmlFor="name">Vardas</label>
-            <input id="name" onChange={handleNameChange} required minLength={2} maxLength={30} name="name" value={name} type="text" />
+            <input id="name" autoFocus onChange={handleNameChange} required minLength={2} maxLength={30} name="name" value={name} type="text" />
           </div>
           <div>
             <label htmlFor="surname">Pavardė</label>
