@@ -7,7 +7,7 @@ import { AccountsContext } from "../../Contexts/AccountsCtx";
 export default function OneAccountRow({ account }) {
   const [newAmount, setNewAmount] = useState(null);
   const { addMsg } = useContext(GlobalContext);
-  const { setUpdateAccount, setDeleteAccountId } = useContext(AccountsContext);
+  const { setUpdateAccount, setDeleteAccount } = useContext(AccountsContext);
 
   const changeAmount = (value) => {
     if (value) {
@@ -47,7 +47,7 @@ export default function OneAccountRow({ account }) {
       addMsg({ type: "error", text: "Sąskaitos kurioje yra pinigų ištrinti negalima." });
       return;
     }
-    setDeleteAccountId(account.id);
+    setDeleteAccount(account);
     addMsg({ type: "success", text: `Kliento (${account.surname} ${account.name}) sąskaita sėkmingai panaikinta.` });
   };
   return (
@@ -81,13 +81,13 @@ export default function OneAccountRow({ account }) {
             onValueChange={(value) => changeAmount(value)}></CurrencyInput>
           <div className="control-box">
             <button className={`green ${account.promiseId ? "disabled" : ""}`} onClick={addMoneyToAccount}>
-              {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+              {!newAmount && <span className="inline-msg">{account.promiseId ? "Wait..." : "Įrašykite sumą"}</span>}
               pridėti lėšų
             </button>
           </div>
           <div className="control-box">
             <button className={`orange ${account.money < newAmount || account.promiseId ? "disabled" : ""}`} onClick={subtractMoneyFromAccount}>
-              {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+              {!newAmount && <span className="inline-msg">{account.promiseId ? "Wait..." : "Įrašykite sumą"}</span>}
               {account.money < newAmount && <span className="inline-msg red">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
               nuskaičiuoti lėšas
             </button>

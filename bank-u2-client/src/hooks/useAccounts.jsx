@@ -1,21 +1,17 @@
-import { useState, useRef, useEffect, useCallback, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import { v4 as uuid } from "uuid";
-import useMessages from "./useMessages";
 import { GlobalContext } from "../Contexts/GlobalCtx";
 
 function useAccounts() {
   const [accounts, setAccounts] = useState(null);
   const [displayAccounts, setDisplayAccounts] = useState(accounts);
   const [filterFunc, setFilterFunc] = useState(null);
-  const [lastUpdateTime, setLastUpdateTime] = useState(null);
 
   const [newAccount, setNewAccount] = useState(null);
-  const [deleteAccountId, setDeleteAccountId] = useState(null);
-  const [updateAccount, setUpdateAccount] = useState(null);
-
-  const accountsInEditSave = useRef({});
+  const [deleteAccount, setDeleteAccount] = useState(null);
+  const [updateAccount, setUpdateAccount] = useState(null); //will save object with old(for save if server fails to delete) and new(updated) account
 
   const { addMsg } = useContext(GlobalContext);
 
@@ -36,9 +32,10 @@ function useAccounts() {
         setAccounts(res.data.accounts);
       })
       .catch((e) => {
+        console.log(e);
         addMsg({ type: "error", text: `Atsiprašome, serverio klaida` });
       });
-  }, [lastUpdateTime, addMsg]);
+  }, [addMsg]);
 
   // use sorted and filtered accounts for display if filter function set
   useEffect(() => {
@@ -76,13 +73,24 @@ function useAccounts() {
   }, [newAccount, addMsg]);
 
   // delete account from db
-  //   useEffect(() => {
-  //     if (deleteAccountId === null) {
-  //       return;
-  //     }
-  //     dbDeleteById({ key: DB_KEY, id: deleteAccountId });
-  //     setLastUpdateTime(Date.now());
-  //   }, [deleteAccountId]);
+  useEffect(() => {
+    if (deleteAccount === null) {
+      return;
+    }
+    setAccounts((accounts) => accounts.filter((account) => account.id !== deleteAccount.id));
+
+    axios
+      .delete(URL + "/" + deleteAccount.id)
+      .then((res) => {
+        if (res.data.message !== "OK") {
+          throw new Error();
+        }
+      })
+      .catch((e) => {
+        setAccounts((accounts) => [...accounts, { ...deleteAccount }]);
+        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida panaikinant sąskaitą (${deleteAccount.name} ${deleteAccount.surname})` });
+      });
+  }, [deleteAccount, addMsg]);
 
   // update account in db
   useEffect(() => {
@@ -90,29 +98,22 @@ function useAccounts() {
       return;
     }
     const promiseId = uuid();
-    const id = updateAccount.old.id;
-    //save account before edit in case edit in server won't succeed
-    accountsInEditSave.current[updateAccount.old.id] = { ...updateAccount.old };
-    setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.new.id ? { ...account, ...updateAccount.new, promiseId } : { ...account })));
+    setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.old.id ? { ...account, ...updateAccount.new, promiseId } : { ...account }))); //old and new id same
 
-    // addMsg({ type: "success", text: "updated bla bla" });
     axios
-      .put(URL + "/" + updateAccount.new.id, { account: updateAccount.new, promiseId })
+      .put(URL + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
-        } else {
-          setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null } : { ...account })));
         }
+        setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null } : { ...account })));
       })
       .catch((e) => {
         //if save edit in server did not happen restore previous account
-        setAccounts((accounts) => accounts.map((account) => (account.promiseId === promiseId ? { ...accountsInEditSave.current[id] } : { ...account })));
-        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos (${updateAccount.new.name} ${updateAccount.new.surname}) pakeitimus` });
-        //??????? how to delete?
-        // delete accountsInEditSave.current[id];
+        setAccounts((accounts) => accounts.map((account) => (account.promiseId === promiseId ? { ...updateAccount.old } : { ...account })));
+        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos (${updateAccount.old.name} ${updateAccount.old.surname}) pakeitimus` });
       });
   }, [updateAccount, addMsg]);
-  return [accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount];
+  return [accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount];
 }
 export default useAccounts;

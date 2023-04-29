@@ -58,12 +58,12 @@ app.post("/accounts", async (req, res) => {
 
 app.put("/accounts/:id", async (req, res) => {
   try {
+    // throw new Error();
     let data = await readFile(DB, "utf-8");
     data = JSON.parse(data);
     data = data.map((account) => (account.id === req.params.id ? { ...account, ...req.body.account } : { ...account }));
     data = JSON.stringify(data);
     await writeFile(DB, data);
-    console.log(req.body.promiseId);
     res.json({
       message: "OK",
       promiseId: req.body.promiseId,
@@ -80,6 +80,7 @@ app.put("/accounts/:id", async (req, res) => {
 
 app.delete("/accounts/:id", async (req, res) => {
   try {
+    // throw new Error();
     let data = await readFile(DB, "utf-8");
     data = JSON.parse(data);
     data = data.filter((account) => account.id !== req.params.id);
