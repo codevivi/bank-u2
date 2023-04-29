@@ -11,19 +11,37 @@
 **Must have [Node.js](https://nodejs.org)** installed
 
 1. Clone the repo
-2. Go into project directory and Install NPM packages
+2. Install client NPM packages : run below command in bank-u2-client directory
 
    ```sh
    npm install
    ```
 
-3. use application:
+3. Install server NPM packages : run below command in bank-u2-server directory
+
+   ```sh
+   npm install
+   ```
+
+4. start server will run on [http://localhost:5000](http://localhost:5000)
 
    ```sh
    npm start
    ```
 
-**further default react readme:**
+   or (with nodemon)
+
+   ```sh
+   npm run dev
+   ```
+
+5. start react application will run on [http://localhost:3000](http://localhost:3000)
+
+   ```sh
+   npm start
+   ```
+
+   **further default react readme:**
 
 ### Getting Started with Create React App
 
