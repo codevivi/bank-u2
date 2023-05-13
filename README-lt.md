@@ -18,7 +18,7 @@ Banką sudaro puslapis, kuriame yra:
 
 - [x] Sąskaitoje likusi suma negali būti minusinė. Rodomas klaidos pranešimas bandant nuskaičiuoti daugiau nei yra.
 
-- [] Duomenų bazė - Express serveris su JSON failu.
+- [x] Duomenų bazė - Express serveris su JSON failu.
 
 - [x] Po kiekvienos įrašymo (trynimo) operacijos turi būti parodomas pranešimas apie operacijos rezultatus.
 
