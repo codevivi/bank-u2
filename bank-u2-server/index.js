@@ -35,6 +35,7 @@ app.get("/accounts", async (req, res) => {
 
 app.post("/accounts", async (req, res) => {
   try {
+    // throw new Error();
     let data = await readFile(DB, "utf-8");
     data = JSON.parse(data);
     const id = uuid();
